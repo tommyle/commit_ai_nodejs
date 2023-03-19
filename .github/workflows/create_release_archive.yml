@@ -1,0 +1,40 @@
+name: Create Release Archive
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  create_archive:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Create archive
+      run: |
+        VERSION=$(echo $GITHUB_REF | sed 's/.*\///g')
+        ARCHIVE_NAME="${GITHUB_REPOSITORY}_${VERSION}.tar.gz"
+        tar -czvf $ARCHIVE_NAME --exclude .git --exclude .github --exclude node_modules --exclude '*.js' --exclude '*.d.ts' .
+
+    - name: Upload archive to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ github.workspace }}/${{ github.repository }}_${{ steps.get_version.outputs.VERSION }}.tar.gz
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
