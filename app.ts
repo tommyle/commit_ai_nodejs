@@ -1,8 +1,7 @@
-const fs = require('fs/promises');
-const childProcess = require('child_process');
-const http = require('http');
-const { ArgumentParser } = require('argparse');
-const axios = require('axios');
+import * as fs from 'fs/promises';
+import * as childProcess from 'child_process';
+import axios from 'axios';
+import { ArgumentParser } from 'argparse';
 
 const apiKeyFilePath = '.commit_ai_api_key';
 
@@ -58,7 +57,7 @@ async function checkGitInstallation() {
 }
 
 async function setApiKey() {
-    const apiKey = await new Promise((resolve) => {
+    const apiKey = await new Promise < string > ((resolve) => {
         process.stdin.setEncoding('utf8');
         process.stdout.write('Enter your OpenAI API key: ');
         process.stdin.once('data', (data) => resolve(data.toString().trim()));
@@ -72,7 +71,7 @@ async function setApiKey() {
     }
 }
 
-async function getApiKey() {
+async function getApiKey(): Promise<string | null> {
     try {
         const apiKey = await fs.readFile(apiKeyFilePath, 'utf8');
         return apiKey.trim();
@@ -81,11 +80,11 @@ async function getApiKey() {
     }
 }
 
-async function getGitDiff() {
+async function getGitDiff(): Promise<string> {
     return childProcess.execSync('git diff --cached').toString();
 }
 
-async function generateCommitMessage(diff, apiKey) {
+async function generateCommitMessage(diff: string, apiKey: string): Promise<string> {
     const url = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
 
     try {
@@ -110,12 +109,13 @@ async function generateCommitMessage(diff, apiKey) {
 
         console.log('Generated commit messages:');
         for (let i = 0; i < choices.length; i++) {
-            console.log(`${i + 1}: ${choices[i].text.trim()}`);
+            console.log(`${i + 1}: ${choices
+            [i].text.trim()}`);
         }
 
-        let selectedIndex;
+        let selectedIndex: number;
         do {
-            selectedIndex = parseInt(await new Promise((resolve) => {
+            selectedIndex = parseInt(await new Promise < string > ((resolve) => {
                 process.stdout.write(`Select a commit message (1-${choices.length}): `);
                 process.stdin.once('data', (data) => resolve(data.toString().trim()));
             }), 10);
@@ -124,18 +124,18 @@ async function generateCommitMessage(diff, apiKey) {
         const selectedCommitMessage = choices[selectedIndex - 1].text.trim();
         return selectedCommitMessage;
     } catch (error) {
-        console.error(`Error: Failed to generate commit message. Status code: ${error.response.status}`);
+        console.error(`Error: Failed to generate commit message.Status code: ${ error.response.status }`);
         console.error(error.response.data);
         process.exit(1);
     }
 }
 
-
-async function commitChanges(commitMessage) {
+async function commitChanges(commitMessage: string) {
     try {
         childProcess.execSync(`git commit -a -m "${commitMessage}"`);
         console.log('Changes committed successfully.');
     } catch (e) {
-        console.error(`Error: Failed to commit changes.\n${e.stderr}`);
+        
+        console.error(`Error: Failed to commit changes.\n${ e.stderr }`);
     }
 }

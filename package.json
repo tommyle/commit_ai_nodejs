@@ -4,7 +4,9 @@
   "description": "A CLI tool to generate git commit messages using OpenAI's GPT-4.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "compile": "tsc app.ts --outDir bin",
+    "start": "node bin/app.js",
+    "build-and-run": "npm run compile && npm run start"
   },
   "keywords": [
     "git",

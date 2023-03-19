@@ -32,7 +32,7 @@ npm install
 1. Set your OpenAI API key:
 
 ```bash
-node app.js --set_api_key
+npm run build-and-run --set_api_key
 ```
 
    You'll be prompted to enter your API key, which will be saved to a local file for future use.
@@ -40,7 +40,7 @@ node app.js --set_api_key
 2. Run the app to generate a commit message and commit the changes:
 
 ```bash
-node app.js
+npm run start app.js
 ```
 
    The app will display multiple commit message suggestions based on the `git diff` output. Choose a message and the app will commit the changes using the selected message.
@@ -50,13 +50,13 @@ node app.js
 - `--help` or `-h`: Display help information.
 
 ```bash
-node app.js --help
+npm run start app.js --help
 ```
 
 - `--show_diff` or `-d`: Show the git diff output.
 
 ```bash
-node app.js --show_diff
+npm run start app.js --show_diff
 ```
 
 ## License
