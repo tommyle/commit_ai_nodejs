@@ -28,7 +28,7 @@ jobs:
       run: |
         VERSION=$(echo $GITHUB_REF | sed 's/.*\///g')
         ARCHIVE_NAME="${GITHUB_REPOSITORY}_${VERSION}.tar.gz"
-        tar -czvf $ARCHIVE_NAME --exclude .git --exclude .github --exclude node_modules --exclude '*.js' --exclude '*.d.ts' .
+        tar -czvf $ARCHIVE_NAME --exclude .git --exclude .github --exclude node_modules --exclude '*.ts' --exclude '*.d.ts' .
 
     - name: Upload archive to release
       uses: svenstaro/upload-release-action@v2
