@@ -1,0 +1,23 @@
+{
+  "name": "commit_ai_nodejs",
+  "version": "1.0.0",
+  "description": "A CLI tool to generate git commit messages using OpenAI's GPT-4.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "message",
+    "gpt-4",
+    "openai",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "axios": "^1.3.4"
+  }
+}
