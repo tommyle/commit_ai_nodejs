@@ -42,6 +42,7 @@ const apiKeyFilePath = '.commit_ai_api_key';
             await commitChanges(commitMessage);
         }
     }
+    process.exit(1);
 })();
 
 async function checkGitInstallation() {
