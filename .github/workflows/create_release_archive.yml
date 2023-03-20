@@ -31,7 +31,8 @@ jobs:
       run: |
         VERSION=$(echo $GITHUB_REF | sed 's/.*\///g')
         ARCHIVE_NAME="${GITHUB_REPOSITORY}_${VERSION}.tar.gz"
-        tar -czvf $ARCHIVE_NAME --exclude .git --exclude .github --exclude node_modules --exclude '*.ts' .
+        cp bin/app.js .  # Copy the app.js file to the root directory
+        tar -czvf $ARCHIVE_NAME --exclude .git --exclude .github --exclude node_modules --exclude *.ts .  # Exclude .ts files
 
     - name: Upload archive to release
       uses: svenstaro/upload-release-action@v2
