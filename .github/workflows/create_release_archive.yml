@@ -6,6 +6,7 @@ on:
       - created
       - published
       - edited
+      - edited
 
 jobs:
   create_archive:
