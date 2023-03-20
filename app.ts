@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as fs from 'fs/promises';
 import * as childProcess from 'child_process';
 import axios from 'axios';

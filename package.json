@@ -1,6 +1,6 @@
 {
   "name": "commit_ai_nodejs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A CLI tool to generate git commit messages using OpenAI's GPT-4.",
   "main": "app.js",
   "scripts": {
@@ -8,6 +8,12 @@
     "start": "node bin/app.js",
     "build-and-run": "npm run compile && npm run start"
   },
+  "bin": {
+    "commitai": "./bin/app.js"
+  },
+  "files": [
+    "bin"
+  ],
   "keywords": [
     "git",
     "commit",
