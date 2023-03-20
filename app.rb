@@ -1,4 +1,4 @@
-class CommitAi < Formula
+class App < Formula
     desc "A CLI tool to generate git commit messages using OpenAI's GPT-4."
     homepage "https://github.com/tommyle/commit_ai_nodejs/tree/main"
     url "https://github.com/tommyle/commit_ai_nodejs/archive/refs/tags/v0.0.4.tar.gz"
